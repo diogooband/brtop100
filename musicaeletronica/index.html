@@ -75,11 +75,11 @@ header{position:sticky;top:0;z-index:50;background:rgba(10,10,10,0.94);backdrop-
 .sr-cta{margin-top:7px;font-size:11.5px}
 .sr-cta a{color:var(--ac)}
 
-.chartwrap{padding:20px 28px 80px}
+.chartwrap{padding:20px 28px 80px;overflow:visible}
 .colhead{display:grid;grid-template-columns:44px 30px 44px minmax(0,1fr) 110px 52px 78px 58px minmax(0,100px) 20px;gap:10px;padding:0 14px 10px;border-bottom:1px solid var(--bd)}
 .colhead span{font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);font-weight:600}
 .r{text-align:right}
-.rows a{display:grid;grid-template-columns:44px 30px 44px minmax(0,1fr) 110px 52px 78px 58px minmax(0,100px) 20px;gap:10px;padding:12px 14px;border-bottom:1px solid var(--bd);align-items:center;transition:background .1s;color:var(--tx)}
+.rows a{display:grid;grid-template-columns:44px 30px 44px minmax(0,1fr) 110px 52px 78px 58px minmax(0,100px) 20px;gap:10px;padding:12px 14px;border-bottom:1px solid var(--bd);align-items:center;transition:background .1s;color:var(--tx);overflow:visible;text-decoration:none}
 .rows a:hover{background:var(--s1)}
 .rank{font-size:17px;font-weight:700;color:var(--t3);font-variant-numeric:tabular-nums;line-height:1}
 .rank.t1{color:var(--ac)}.rank.t2,.rank.t3{color:var(--tx)}
@@ -97,14 +97,20 @@ header{position:sticky;top:0;z-index:50;background:rgba(10,10,10,0.94);backdrop-
 .splay{display:flex;align-items:center;justify-content:flex-end;color:var(--t3);opacity:0;transition:opacity .12s}
 .rows a:hover .splay{opacity:1}
 .splay svg{width:14px;height:14px}
-.trend{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:0.5px;white-space:nowrap;flex-shrink:0}
+.trend{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:0.5px;white-space:nowrap;flex-shrink:0;position:relative;cursor:help}
 .trend.up{background:rgba(90,199,122,0.12);color:#5ac77a}
 .trend.dn{background:rgba(214,90,90,0.12);color:#d65a5a}
 .trend.eq{background:rgba(255,255,255,0.06);color:#666}
+.trend::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a1a1a;color:#e0e0e0;font-size:11px;font-family:'Archivo',sans-serif;font-weight:400;line-height:1.5;padding:8px 11px;border-radius:6px;border:1px solid #333;width:220px;pointer-events:none;opacity:0;transition:opacity .15s ease;z-index:200;text-align:left;white-space:normal}
 
 footer{border-top:1px solid var(--bd);background:var(--s1);padding:36px 28px}
 .beta-notice{margin-top:28px;padding-top:18px;border-top:1px solid var(--bd);font-size:11px;line-height:1.6;color:#666;text-align:center;letter-spacing:.02em}
 .beta-notice a{color:var(--t2);text-decoration:underline}
+/* TOOLTIPS */
+.tip{position:relative;cursor:help}
+.tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a1a1a;color:#e0e0e0;font-size:11px;font-family:'Archivo',sans-serif;font-weight:400;line-height:1.5;padding:8px 11px;border-radius:6px;border:1px solid #333;white-space:nowrap;max-width:260px;white-space:normal;width:max-content;max-width:240px;pointer-events:none;opacity:0;transition:opacity .15s ease;z-index:100;text-align:left}
+.tip:hover::after{opacity:1}
+.trend:hover::after{opacity:1}
 .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
 .foot-links{display:flex;gap:20px;font-size:11.5px;color:var(--t2)}
 .foot-links a{transition:color .15s;cursor:pointer}
@@ -217,9 +223,14 @@ footer{border-top:1px solid var(--bd);background:var(--s1);padding:36px 28px}
 
 <div class="chartwrap">
   <div class="colhead">
-    <span>#</span><span></span><span></span><span>Artista</span>
-    <span class="r">Pulso</span><span class="r">Pop</span><span class="r">Seguidores</span>
-    <span class="r">Pop track</span><span class="r">Top track</span><span></span>
+    <span>#</span><span></span><span></span>
+    <span>Artista <span class="tip" style="font-size:10px;color:#555;font-weight:400;border-bottom:1px dashed #444;cursor:help" data-tip="Tendência recente do artista nas plataformas de streaming. Calculada via Chartmetric com base em variações de streams, saves e engajamento nas últimas semanas.">trend</span></span>
+    <span class="r tip" data-tip="Score composto que cruza popularidade atual, base de fãs e ouvintes mensais. Quanto maior, mais sólida a presença do artista na cena.">Pulso</span>
+    <span class="r tip" data-tip="Índice de 0 a 100 do Spotify que mede o quão tocado o artista está AGORA. Sobe com streams recentes; cai quando esfria. Reflete o momento, não o histórico.">Pop</span>
+    <span class="r tip" data-tip="Total de seguidores no Spotify. Base acumulada de fãs que escolheram seguir o artista. Difícil de manipular — cresce devagar e de forma consistente.">Seguidores</span>
+    <span class="r tip" data-tip="Ouvintes mensais da faixa mais popular do artista no Spotify. Indica se o artista tem música circulando ativamente agora.">Pop track</span>
+    <span class="r tip" data-tip="Nome da faixa mais tocada no momento. Em breve disponível — aguardando integração completa com a API.">Top track</span>
+    <span></span>
   </div>
   <div class="rows" id="rows"></div>
 </div>
@@ -300,16 +311,16 @@ function ff(n){if(n>=1000000)return(n/1000000).toFixed(1)+'M';if(n>=1000)return 
 function ini(n){return n.split(/[\s\-]/).filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase()}
 function avH(a){if(a.img){return '<img class="av-img" src="'+a.img+'" alt="'+a.n.replace(/"/g,'')+'" loading="lazy" onerror="this.parentNode.innerHTML=\''+ini(a.n)+'\'">';}return ini(a.n);}
 function mvH(a){
-  if(a.mov==='new')return'<span class="mv nw">NOVO</span>';
-  if(a.mov==='up')return'<span class="mv up">▲'+a.d+'</span>';
-  if(a.mov==='dn')return'<span class="mv dn">▼'+a.d+'</span>';
-  return'<span class="mv eq">—</span>';
+  if(a.mov==='new')return'<span class="mv nw tip" data-tip="Novo no chart — ainda sem posição anterior para comparar.">NOVO</span>';
+  if(a.mov==='up')return'<span class="mv up tip" data-tip="Subiu '+a.d+' posição'+(a.d>1?'ns':'')+ ' em relação à última atualização. Comparativo real disponível a partir da 2ª edição mensal.">▲'+a.d+'</span>';
+  if(a.mov==='dn')return'<span class="mv dn tip" data-tip="Caiu '+a.d+' posição'+(a.d>1?'ns':'')+ ' em relação à última atualização. Comparativo real disponível a partir da 2ª edição mensal.">▼'+a.d+'</span>';
+  return'<span class="mv eq tip" data-tip="Manteve a posição em relação à última atualização.">—</span>';
 }
 function trendH(a){
   if(!a.trend)return'';
-  if(a.trend==='growth')return'<span class="trend up">↑ crescendo</span>';
-  if(a.trend==='decline')return'<span class="trend dn">↓ decrescendo</span>';
-  return'<span class="trend eq">→ estável</span>';
+  if(a.trend==='growth')return'<span class="trend up tip" data-tip="Crescendo — o artista está ganhando streams, saves e engajamento nas últimas semanas. Dado em tempo real via Chartmetric.">↑ crescendo</span>';
+  if(a.trend==='decline')return'<span class="trend dn tip" data-tip="Esfriando — o artista está perdendo tração nas plataformas nas últimas semanas. Pode ser temporário.">↓ decrescendo</span>';
+  return'<span class="trend eq tip" data-tip="Estável — o artista mantém presença consistente nas plataformas sem variação significativa recente.">→ estável</span>';
 }
 function render(arr){
   let h='';
@@ -320,7 +331,7 @@ function render(arr){
       +'<div>'+mvH(a)+'</div>'
       +'<div class="av">'+ini(a.n)+'</div>'
       +'<div class="nm-wrap"><div class="name" style="display:flex;align-items:center;gap:7px">'+a.n+trendH(a)+'</div><div class="gen">'+a.g+'</div></div>'
-      +'<div class="pulso">'+fp(a.pulso)+'</div>'
+      +'<div class="pulso tip" data-tip="Pulso do Artista = (Score Chartmetric × 1.000) + (Seguidores ÷ 1.000) + (Ouvintes mensais ÷ 10.000)">'+fp(a.pulso)+'</div>'
       +'<div class="num">'+a.pop+'</div>'
       +'<div class="num">'+ff(a.fol)+'</div>'
       +'<div class="num">'+a.tp+'</div>'
