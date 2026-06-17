@@ -117,6 +117,7 @@ footer{border-top:1px solid var(--bd);background:var(--s1);padding:36px 28px}
 /* TOOLTIPS */
 .tip{position:relative;cursor:help}
 .tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1a1a1a;color:#e0e0e0;font-size:11px;font-family:'Archivo',sans-serif;font-weight:400;line-height:1.5;padding:8px 11px;border-radius:6px;border:1px solid #333;white-space:nowrap;max-width:260px;white-space:normal;width:max-content;max-width:240px;pointer-events:none;opacity:0;transition:opacity .15s ease;z-index:100;text-align:left}
+.mv.tip::after{left:0;transform:none}
 .tip:hover::after{opacity:1}
 .trend:hover::after{opacity:1}
 .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
@@ -185,6 +186,54 @@ footer{border-top:1px solid var(--bd);background:var(--s1);padding:36px 28px}
   .card-mobile{display:none}
   .card-pulso{display:none}
 }
+
+.faq-list{display:flex;flex-direction:column;gap:0}
+.faq-item{padding:14px 0;border-bottom:1px solid var(--bd)}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:6px}
+.faq-a{font-size:13px;color:var(--t2);line-height:1.6}
+
+.r.sortable{cursor:pointer;user-select:none}
+.r.sortable:hover{color:var(--ac)}
+.r.sortable.sort-asc::after{content:" ↑";color:var(--ac);font-size:10px}
+.r.sortable.sort-desc::after{content:" ↓";color:var(--ac);font-size:10px}
+.r.sort-active{color:var(--ac)}
+
+.btn-comecar{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ac);color:var(--ac);background:none;font-size:13px;padding:10px 20px;border-radius:6px;cursor:pointer;font-family:inherit;font-weight:500;letter-spacing:0.3px;margin-top:16px;transition:background .2s,color .2s}
+.btn-comecar:hover{background:var(--ac);color:#000}
+.abc-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px}
+.abc-overlay.show{display:flex}
+.abc-modal{background:#111;border:1px solid #222;border-radius:12px;width:100%;max-width:600px;max-height:88vh;overflow:hidden;display:flex;flex-direction:column}
+.abc-header{display:flex;justify-content:space-between;align-items:center;padding:16px 22px;border-bottom:1px solid #1e1e1e;flex-shrink:0}
+.abc-header span{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ac)}
+.abc-close{background:none;border:none;color:#555;font-size:20px;cursor:pointer;line-height:1;padding:0}
+.abc-close:hover{color:var(--ac)}
+.abc-body{padding:24px 22px;overflow-y:auto;display:flex;flex-direction:column;gap:20px}
+.abc-body::-webkit-scrollbar{width:4px}
+.abc-body::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+.abc-intro{font-size:13px;line-height:1.8;color:#999}
+.abc-intro strong{color:#ddd}
+.abc-sec{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.abc-metrics{display:flex;flex-direction:column;gap:8px}
+.abc-mrow{display:flex;gap:10px;align-items:flex-start}
+.abc-mdot{width:5px;height:5px;border-radius:50%;background:var(--ac);margin-top:7px;flex-shrink:0}
+.abc-mtext{font-size:12px;color:#888;line-height:1.6}
+.abc-mtext strong{color:#ccc}
+.abc-tips{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.abc-tip{background:#161616;border-radius:6px;padding:11px 13px}
+.abc-tip-label{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#555;margin-bottom:3px}
+.abc-tip-text{font-size:11px;color:#888;line-height:1.5}
+.abc-contact{background:#161616;border-radius:6px;padding:13px 15px;border-left:2px solid var(--ac)}
+.abc-contact p{font-size:12px;color:#888;line-height:1.7}
+.abc-contact a{color:var(--ac);text-decoration:none}
+.abc-closing{font-size:12px;color:#666;line-height:1.8}
+.abc-sig{display:flex;flex-direction:column;gap:3px;margin-top:6px}
+.abc-sig img{height:52px;width:auto;opacity:0.9}
+.abc-sig-name{font-size:13px;font-weight:600;color:#bbb}
+.abc-sig-role{font-size:10px;color:#555}
+.abc-sig-ig{font-size:10px;color:var(--ac)}
+.abc-hr{border:none;border-top:1px solid #1e1e1e}
+@media(max-width:640px){.abc-tips{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -202,6 +251,9 @@ footer{border-top:1px solid var(--bd);background:var(--s1);padding:36px 28px}
 
 <section class="hero">
   <h2>BR TOP 100<br>Música Eletrônica</h2>
+  <button class="btn-comecar" onclick="document.getElementById('abcOverlay').classList.add('show')">
+    Antes de começar &rarr;
+  </button>
 </section>
 
 <div class="accordion">
@@ -272,14 +324,49 @@ footer{border-top:1px solid var(--bd);background:var(--s1);padding:36px 28px}
   <div class="colhead">
     <span>#</span><span></span><span></span>
     <span>Artista <span class="tip" style="font-size:10px;color:#555;font-weight:400;border-bottom:1px dashed #444;cursor:help" data-tip="Tendência recente do artista nas plataformas de streaming. Calculada via Chartmetric com base em variações de streams, saves e engajamento nas últimas semanas.">trend</span></span>
-    <span class="r tip" data-tip="Score composto que cruza popularidade atual, base de fãs e ouvintes mensais. Quanto maior, mais sólida a presença do artista na cena.">Pulso</span>
-    <span class="r tip" data-tip="Índice de 0 a 100 do Spotify que mede o quão tocado o artista está AGORA. Sobe com streams recentes; cai quando esfria. Reflete o momento, não o histórico.">Pop</span>
-    <span class="r tip" data-tip="Total de seguidores no Spotify. Base acumulada de fãs que escolheram seguir o artista. Difícil de manipular — cresce devagar e de forma consistente.">Seguidores</span>
-    <span class="r tip" data-tip="Ouvintes mensais do artista no Spotify. Indica o volume atual de alcance na plataforma.">Ouvintes mensais</span>
+    <span class="r tip sortable" id="sort-pulso" data-tip="Score composto que cruza popularidade atual, base de fãs e ouvintes mensais. Quanto maior, mais sólida a presença do artista na cena." onclick="sortBy('pulso')">Pulso</span>
+    <span class="r tip sortable" id="sort-pop" data-tip="Índice de 0 a 100 do Spotify que mede o quão tocado o artista está AGORA. Sobe com streams recentes; cai quando esfria. Reflete o momento, não o histórico." onclick="sortBy('pop')">Pop</span>
+    <span class="r tip sortable" id="sort-fol" data-tip="Total de seguidores no Spotify. Base acumulada de fãs que escolheram seguir o artista. Difícil de manipular — cresce devagar e de forma consistente." onclick="sortBy('fol')">Seguidores</span>
+    <span class="r tip sortable" id="sort-tp" data-tip="Ouvintes mensais do artista no Spotify. Indica o volume atual de alcance na plataforma." onclick="sortBy('tp')">Ouvintes mensais</span>
   </div>
   <div class="rows" id="rows"></div>
 </div>
 
+
+<div class="accordion" id="faqAccordion" style="margin-top:0;border-top:1px solid var(--bd)">
+  <button class="acc-btn" id="faqBtn" onclick="toggleFaq()" style="padding:16px 0">
+    <span>Perguntas frequentes</span>
+    <span class="arr" id="faqArr">&#9662;</span>
+  </button>
+  <div class="acc-body" id="faqBody" style="display:none">
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Com que frequência o chart é atualizado?</div>
+        <div class="faq-a">O BR TOP 100 é atualizado mensalmente. Cada edição reflete os dados mais recentes de popularidade, seguidores e ouvintes mensais coletados via Chartmetric.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Como um artista entra na lista?</div>
+        <div class="faq-a">A base de artistas é curada manualmente pela equipe da NOMMAD Media. Para sugerir um artista brasileiro de música eletrônica, envie um e-mail para <a href="mailto:contato@nommadmedia.com.br" style="color:var(--ac)">contato@nommadmedia.com.br</a> com o nome do artista e o link do Spotify.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">O que é o Pulso do Artista?</div>
+        <div class="faq-a">O Pulso é o índice proprietário do BR TOP 100. Ele cruza três sinais: popularidade atual no Spotify, base de seguidores e ouvintes mensais — com pesos diferentes para cada fator. Quanto maior o Pulso, mais sólida e ativa é a presença do artista na cena.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Por que meu artista favorito não aparece?</div>
+        <div class="faq-a">Pode ser que ele ainda não esteja na nossa base ou que o Pulso dele esteja abaixo do corte do top 100 nessa edição. Você pode buscá-lo pela barra de pesquisa para ver se ele já tem um Pulso calculado.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">O chart inclui artistas de todos os estilos de eletrônica?</div>
+        <div class="faq-a">Sim. O BR TOP 100 cobre os principais subgêneros da cena brasileira: Tech House, House, Techno, Melodic, Psytrance, Drum &amp; Bass, Brazilian EDM e Eletrofunk — com rankings independentes para cada um.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">O subgênero do meu artista está errado. Como corrigir?</div>
+        <div class="faq-a">A classificação de subgêneros é puxada diretamente via Chartmetric e, em alguns casos, erros podem ocorrer. Para corrigir manualmente, envie o nome do artista, o link do Spotify e o subgênero correto para <a href="mailto:contato@nommadmedia.com.br" style="color:var(--ac)">contato@nommadmedia.com.br</a>. O subgênero precisa ser um dos já monitorados: Tech House, House, Techno, Melodic, Psytrance, Drum &amp; Bass, Brazilian EDM ou Eletrofunk.</div>
+      </div>
+    </div>
+  </div>
+</div>
 <footer>
   <div class="foot">
     <div style="display:flex;flex-direction:column;gap:16px">
@@ -368,10 +455,23 @@ function trendH(a){
   return'<span class="trend eq tip" data-tip="Estável — o artista mantém presença consistente nas plataformas sem variação significativa recente.">→ estável</span>';
 }
 function render(arr){
+  // Reset sort ao trocar de aba
+  currentSort='pulso';
+  sortDir=-1;
+  ['pulso','pop','fol','tp'].forEach(function(f){
+    var el=document.getElementById('sort-'+f);
+    if(!el)return;
+    el.classList.remove('sort-asc','sort-desc','sort-active');
+    if(f==='pulso') el.classList.add('sort-desc','sort-active');
+  });
   const isMobile=window.innerWidth<=640;
   let h='';
+  // Mapear posição original pelo Pulso (índice no array não ordenado)
+  var origArr=CHARTS[activeTab]||[];
   arr.slice(0,100).forEach((a,i)=>{
-    const r=i+1,rc=r===1?'t1':r===2?'t2':r===3?'t3':'';
+    const origPos=origArr.findIndex(function(x){return x.n===a.n;})+1;
+    const r=origPos>0?origPos:i+1;
+    const rc=r===1?'t1':r===2?'t2':r===3?'t3':'';
     if(isMobile){
       h+='<a href="'+a.url+'" target="_blank" rel="noopener">'
         +'<div class="rank '+rc+'" style="min-width:28px;text-align:center">'+r+'<br><span style="display:block;margin-top:3px">'+mvH(a)+'</span></div>'
@@ -458,6 +558,135 @@ function refresh(){
   render(CHARTS[activeTab]);
 }
 refresh();
+
+function toggleFaq(){
+  const b=document.getElementById('faqBody');
+  const a=document.getElementById('faqArr');
+  const open=b.style.display==='block';
+  b.style.display=open?'none':'block';
+  a.style.transform=open?'':'rotate(180deg)';
+}
+
+var currentSort='pulso';
+var sortDir=-1; // -1 = desc, 1 = asc
+
+function sortBy(field){
+  if(currentSort===field){
+    sortDir*=-1;
+  } else {
+    currentSort=field;
+    sortDir=-1;
+  }
+  // Atualizar visual dos headers
+  ['pulso','pop','fol','tp'].forEach(function(f){
+    var el=document.getElementById('sort-'+f);
+    if(!el)return;
+    el.classList.remove('sort-asc','sort-desc','sort-active');
+    if(f===field){
+      el.classList.add(sortDir===-1?'sort-desc':'sort-asc','sort-active');
+    }
+  });
+  // Ordenar e re-renderizar
+  var arr=CHARTS[activeTab]||[];
+  var sorted=arr.slice().sort(function(a,b){
+    return (b[field]-a[field])*sortDir*-1;
+  });
+  renderSorted(sorted);
+}
+
+function renderSorted(arr){
+  const isMobile=window.innerWidth<=640;
+  let h='';
+  arr.slice(0,100).forEach((a,i)=>{
+    const r=i+1,rc=r===1?'t1':r===2?'t2':r===3?'t3':'';
+    if(isMobile){
+      h+='<a href="'+a.url+'" target="_blank" rel="noopener">'
+        +'<div class="rank '+rc+'" style="min-width:28px;text-align:center">'+r+'<br><span style="display:block;margin-top:3px">'+mvH(a)+'</span></div>'
+        +'<div class="av">'+avH(a)+'</div>'
+        +'<div class="card-mobile">'
+        +'<div class="nm">'+a.n+trendH(a)+'</div>'
+        +'<div class="gn">'+a.g+'</div>'
+        +'<div class="metrics">'
+        +'<div class="metric"><div class="mv">'+a.pop+'</div><div class="ml">Pop</div></div>'
+        +'<div class="metric"><div class="mv">'+ff(a.fol)+'</div><div class="ml">Seg</div></div>'
+        +'<div class="metric"><div class="mv">'+ff(a.tp)+'</div><div class="ml">Ouv/mês</div></div>'
+        +'</div>'
+        +'</div>'
+        +'<div class="card-pulso"><div class="pv">'+fp(a.pulso)+'</div><div class="pl">Pulso</div></div>'
+        +'</a>';
+    } else {
+      h+='<a href="'+a.url+'" target="_blank" rel="noopener">'
+        +'<div class="rank '+rc+'">'+r+'</div>'
+        +'<div>'+mvH(a)+'</div>'
+        +'<div class="av">'+avH(a)+'</div>'
+        +'<div class="nm-wrap"><div class="name" style="display:flex;align-items:center;gap:7px">'+a.n+trendH(a)+'</div><div class="gen">'+a.g+'</div></div>'
+        +'<div class="pulso tip" data-tip="Pulso do Artista = (Score Chartmetric × 300) + (Seguidores ÷ 100) + (Ouvintes mensais ÷ 5.000)">'+fp(a.pulso)+'</div>'
+        +'<div class="num">'+a.pop+'</div>'
+        +'<div class="num">'+ff(a.fol)+'</div>'
+        +'<div class="num">'+a.tp+'</div>'
+        +'<div class="splay"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.59 14.42c-.18.3-.57.4-.86.21-2.35-1.43-5.3-1.76-8.79-.96-.34.08-.67-.13-.74-.47-.08-.34.13-.67.47-.74 3.81-.87 7.08-.49 9.71 1.12.3.18.4.57.21.84zm1.22-2.72c-.23.37-.71.48-1.07.26-2.69-1.65-6.79-2.13-9.97-1.17-.41.12-.84-.11-.96-.52-.12-.41.11-.84.52-.96 3.63-1.1 8.15-.57 11.23 1.33.36.22.48.71.25 1.06zm.11-2.83C14.69 8.95 9.38 8.78 6.3 9.71c-.49.15-1.01-.13-1.16-.62-.15-.49.13-1.01.62-1.16 3.53-1.07 9.4-.86 13.12 1.34.44.26.58.83.32 1.27-.26.43-.83.58-1.26.32z"/></svg></div>'
+        +'</a>';
+    }
+  });
+  document.getElementById('rows').innerHTML=h;
+}
 </script>
+
+<div class="abc-overlay" id="abcOverlay" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="abc-modal">
+    <div class="abc-header">
+      <span>Antes de começar</span>
+      <button class="abc-close" onclick="document.getElementById('abcOverlay').classList.remove('show')">&#x2715;</button>
+    </div>
+    <div class="abc-body">
+      <div class="abc-intro">
+        <p style="margin-bottom:10px">Bem-vindo ao <strong>BR TOP 100 &mdash; Música Eletrônica.</strong></p>
+        <p style="margin-bottom:10px">Eu sou o Diogo O&apos;Band, fundador da NOMMAD Media, e criei esse chart por uma razão simples: a cena eletrônica brasileira é uma das mais fortes do mundo, mas não tem um termômetro honesto da movimentação dos artistas e da cena como um todo.</p>
+        <p style="margin-bottom:10px">Esse ranking não foi feito com o intuito de gerar competição, mas sim de mostrar toda a potência da cena eletrônica nacional em números &mdash; e com a esperança de que juntos possamos fazê-la crescer cada vez mais.</p>
+        <p><strong>Esse é o BR TOP 100.</strong></p>
+      </div>
+      <hr class="abc-hr">
+      <div>
+        <div class="abc-sec">Como o chart funciona</div>
+        <p style="font-size:12px;color:#777;line-height:1.7;margin-bottom:10px">O ranking é baseado no <strong style="color:#ccc">Pulso do Artista</strong> &mdash; um índice próprio que cruza três sinais coletados via Chartmetric, uma das principais plataformas de analytics musical do mundo:</p>
+        <div class="abc-metrics">
+          <div class="abc-mrow"><div class="abc-mdot"></div><div class="abc-mtext"><strong>Popularidade</strong> &mdash; mede o quão tocado o artista está agora. Sobe com streams recentes, saves e playlists. É o maior peso da fórmula.</div></div>
+          <div class="abc-mrow"><div class="abc-mdot"></div><div class="abc-mtext"><strong>Seguidores</strong> &mdash; a base acumulada de fãs no Spotify. Cresce devagar e é difícil de manipular.</div></div>
+          <div class="abc-mrow"><div class="abc-mdot"></div><div class="abc-mtext"><strong>Ouvintes mensais</strong> &mdash; o volume de alcance atual do artista na plataforma.</div></div>
+        </div>
+      </div>
+      <hr class="abc-hr">
+      <div>
+        <div class="abc-sec">Como explorar</div>
+        <div class="abc-tips">
+          <div class="abc-tip"><div class="abc-tip-label">Subgêneros</div><div class="abc-tip-text">Cada aba tem ranking independente &mdash; Tech House, House, Techno, Melodic e mais.</div></div>
+          <div class="abc-tip"><div class="abc-tip-label">Ordenação</div><div class="abc-tip-text">Clique nos nomes das colunas para reordenar por Pulso, Pop, Seguidores ou Ouvintes.</div></div>
+          <div class="abc-tip"><div class="abc-tip-label">Busca</div><div class="abc-tip-text">Encontre qualquer artista da base, mesmo fora do top 100.</div></div>
+          <div class="abc-tip"><div class="abc-tip-label">Atualização</div><div class="abc-tip-text">Mensal. A data da última edição aparece no topo da página.</div></div>
+        </div>
+      </div>
+      <hr class="abc-hr">
+      <div>
+        <div class="abc-sec">Não achou seu artista? Subgênero errado?</div>
+        <div class="abc-contact">
+          <p>O chart está em <strong style="color:#ccc">versão beta</strong> e a base é curada manualmente. A classificação de subgêneros é puxada automaticamente via Chartmetric &mdash; erros podem acontecer, fique tranquilo.<br><br>
+          Para sugerir um artista ou corrigir um subgênero, manda o nome, o link do Spotify e o subgênero correto para <a href="mailto:contato@nommadmedia.com.br">contato@nommadmedia.com.br</a></p>
+        </div>
+      </div>
+      <hr class="abc-hr">
+      <div class="abc-closing">
+        <p style="margin-bottom:10px">Esse chart é colaborativo. Cada sugestão e correção ajuda a tornar o BR TOP 100 mais preciso e mais representativo da cena.</p>
+        <p style="margin-bottom:10px">Vale dizer: esse projeto é financiado do meu próprio bolso. Não tem patrocinador, não tem anunciante, não tem nada sendo vendido aqui. É o meu presente para a cena eletrônica brasileira.</p>
+        <p style="margin-bottom:16px">Obrigado por fazer parte disso.</p>
+        <div class="abc-sig">
+          
+          <div class="abc-sig-name">Diogo O&apos;Band</div>
+          <div class="abc-sig-role">Fundador da NOMMAD Media &middot; Estrategista Fonográfico</div>
+          <div class="abc-sig-ig">@nommadmedia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
