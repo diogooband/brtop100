@@ -245,6 +245,7 @@ footer{border-top:1px solid var(--bd);background:var(--s1);padding:36px 28px}
   <div class="hdr-r">
     <div style="text-align:right"><span class="upd" id="upd"></span><div style="font-size:8.5px;color:var(--t3);letter-spacing:0.5px;margin-top:1px;font-family:'JetBrains Mono',monospace">Atualização mensal</div></div>
     <button class="hbtn" onclick="openAbout()">Sobre</button>
+    <button class="hbtn" onclick="openSugestoes()">Sugestões</button>
     <button class="hbtn" onclick="refresh()">↻</button>
   </div>
 </header>
@@ -384,7 +385,7 @@ footer{border-top:1px solid var(--bd);background:var(--s1);padding:36px 28px}
       </div>
       <div class="foot-links">
         <a onclick="openAbout()" style="cursor:pointer">Sobre o projeto</a>
-        <a href="mailto:contato@nommadmedia.com.br?subject=Sugestão de artista — BR TOP 100">Sugerir artista</a>
+        <a href="#" onclick="openSugestoes();return false;">Sugestões</a>
         <a href="https://www.instagram.com/nommadmedia" target="_blank">Instagram</a>
       </div>
     </div>
@@ -630,6 +631,10 @@ function renderSorted(arr){
   });
   document.getElementById('rows').innerHTML=h;
 }
+
+function openSugestoes(){
+  document.getElementById('sugOverlay').classList.add('show');
+}
 </script>
 
 <div class="abc-overlay" id="abcOverlay" onclick="if(event.target===this)this.classList.remove('show')">
@@ -685,6 +690,38 @@ function renderSorted(arr){
           <div class="abc-sig-ig">@nommadmedia</div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="abc-overlay" id="sugOverlay" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="abc-modal" style="max-width:480px">
+    <div class="abc-header">
+      <span>Sugestões</span>
+      <button class="abc-close" onclick="document.getElementById('sugOverlay').classList.remove('show')">&#x2715;</button>
+    </div>
+    <div class="abc-body" style="gap:16px">
+      <p style="font-size:13px;color:#999;line-height:1.7">Quer sugerir um artista, corrigir um subgênero ou reportar qualquer problema? Manda um email para a gente.</p>
+
+      <div class="abc-contact" style="display:flex;flex-direction:column;gap:12px">
+        <div>
+          <div class="abc-sec" style="margin-bottom:6px">Sugerir novo artista</div>
+          <p style="font-size:12px;color:#888;line-height:1.6">Manda o nome do artista e o link do Spotify para:<br>
+          <a href="mailto:contato@nommadmedia.com.br?subject=Sugestão de artista — BR TOP 100&body=Nome do artista: %0ALink do Spotify: " style="color:var(--ac)">contato@nommadmedia.com.br</a></p>
+        </div>
+        <div style="border-top:1px solid #222;padding-top:12px">
+          <div class="abc-sec" style="margin-bottom:6px">Corrigir subgênero</div>
+          <p style="font-size:12px;color:#888;line-height:1.6">Manda o nome do artista, o link do Spotify e o subgênero correto para:<br>
+          <a href="mailto:contato@nommadmedia.com.br?subject=Correção de subgênero — BR TOP 100&body=Nome do artista: %0ALink do Spotify: %0ASubgênero correto: " style="color:var(--ac)">contato@nommadmedia.com.br</a></p>
+        </div>
+        <div style="border-top:1px solid #222;padding-top:12px">
+          <div class="abc-sec" style="margin-bottom:6px">Reportar problema</div>
+          <p style="font-size:12px;color:#888;line-height:1.6">Encontrou algo errado no chart? Manda um email para:<br>
+          <a href="mailto:contato@nommadmedia.com.br?subject=Problema reportado — BR TOP 100" style="color:var(--ac)">contato@nommadmedia.com.br</a></p>
+        </div>
+      </div>
+
+      <p style="font-size:11px;color:#555;text-align:center">O chart é atualizado mensalmente. Sugestões recebidas até o fim do mês entram na próxima edição.</p>
     </div>
   </div>
 </div>
