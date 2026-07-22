@@ -237,6 +237,12 @@ footer{border-top:1px solid var(--bd);background:var(--s1);padding:36px 28px}
 </style>
 </head>
 <body>
+<div id="powered-bar" style="position:fixed;top:0;left:0;right:0;z-index:999;background:#0a0a0a;border-bottom:1px solid #1a1a1a;padding:5px 20px;display:flex;align-items:center;justify-content:center">
+  <a href="https://www.instagram.com/nommadmedia" target="_blank" rel="noopener" style="text-decoration:none;opacity:0.7;transition:opacity .2s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+    <span style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#e8c13d;font-family:'Archivo',sans-serif;font-weight:500">Powered by NOMMAD Media</span>
+  </a>
+</div>
+<div style="height:28px"></div>
 <header>
   <div class="brand">
     <h1>BR <span class="ac">TOP 100</span></h1>
@@ -555,7 +561,7 @@ function closeAbout(){document.getElementById('about').classList.remove('show')}
 document.getElementById('about').addEventListener('click',e=>{if(e.target.id==='about')closeAbout()});
 function refresh(){
   const now=new Date();
-  document.getElementById('upd').textContent='ATU. 15/06/2026 19:18';//('pt-BR')+' '+now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('upd').textContent='ATU. 22/07/2026';//('pt-BR')+' '+now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
   render(CHARTS[activeTab]);
 }
 refresh();
